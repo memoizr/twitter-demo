@@ -1,5 +1,5 @@
 ## Twitter-demo
-[Demo video](https://drive.google.com/file/d/0B7L-eLYYr_x9UTRFYXMtY2tmYjA/view?usp=sharing)
+[1-minute Demo video](https://drive.google.com/file/d/0B7L-eLYYr_x9UTRFYXMtY2tmYjA/view?usp=sharing)
 
 ### What to look forward to:
 - The video upload feature was not trivial to implement. In one screen there is video capturing, video editing using a native C library, four separate network request to be coordinated, handling user input... and all across multiple threads. It was fun to implement! It should be thoroughly tested.
