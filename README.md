@@ -12,4 +12,5 @@
 ### What not to look forward to:
 - Low Cucumber coverage.
 - Sparse testing for some util classes, in particular the ones dealing with saving files, setting executable permissions and running native code. I still haven't figured out how to test that.
+- Not much error handling. Not much rotation handling. Only the Stream screen handles rotation for now.
 - Spiders.
