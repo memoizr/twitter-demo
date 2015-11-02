@@ -9,11 +9,11 @@ import android.view.View;
 
 import com.memoizrlabs.jeeter.R;
 
-final class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
+final class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private final Drawable divider;
 
-    public SimpleDividerItemDecoration(@NonNull Context context) {
+    public DividerItemDecoration(@NonNull Context context) {
         divider = context.getResources()
                          .getDrawable(R.drawable.line_divider);
     }

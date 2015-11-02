@@ -60,7 +60,7 @@ public final class StreamActivity extends BaseActivity<StreamPresenter.View> imp
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext()));
     }
 
     private void setupToolbar() {
