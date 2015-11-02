@@ -8,7 +8,7 @@ import com.memoizrlabs.jeeter.common.PresenterView;
 
 /**
  * Base class for presenter tests. Extend this class whenever it is desired to
- * when_loginSucceeds_then_showTimeline a Presenter class.
+ * create a Presenter class.
  *
  * @param <P> The Presenter being tested
  * @param <V> The view associated to the Presenter View

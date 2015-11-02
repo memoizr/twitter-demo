@@ -33,12 +33,14 @@ import rx.subjects.PublishSubject;
 public final class StreamActivity extends BaseActivity<StreamPresenter.View> implements
         StreamPresenter.View {
 
-    private static final int RESULT = 1;
+    private static final int TEXT_RESULT = 1;
+    private static final int VIDEO_RESULT = 2;
     private static final int SCROLL_DELAY_MS = 600;
 
     private final StreamAdapter adapter = new StreamAdapter();
 
-    private final PublishSubject<Tweet> tweetCreatedSubject = PublishSubject.create();
+    private final PublishSubject<Tweet> textTweetCreatedSubject = PublishSubject.create();
+    private final PublishSubject<Tweet> videoTweetCreatedSubject = PublishSubject.create();
 
     private SwipeRefreshLayout swipeRefresh;
     private RecyclerView recyclerView;
@@ -127,33 +129,37 @@ public final class StreamActivity extends BaseActivity<StreamPresenter.View> imp
     @Override
     public Observable<Tweet> showTweetCreation() {
         ActivityStarter.with(this)
-                       .forResult(RESULT)
+                       .forResult(TEXT_RESULT)
                        .start(TweetCreationActivity.class);
-        return tweetCreatedSubject;
+        return textTweetCreatedSubject;
     }
 
     @NonNull
     @Override
     public Observable<Tweet> showVideoTweetCreation() {
         ActivityStarter.with(this)
-                       .forResult(RESULT)
+                       .forResult(VIDEO_RESULT)
                        .start(VideoTweetCreationActivity.class);
-        return tweetCreatedSubject;
+        return videoTweetCreatedSubject;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT) {
-            if (resultCode == RESULT_OK) {
-                final Tweet result = TweetCreationHelper.getResult(data);
-                tweetCreatedSubject.onNext(result);
+        if (resultCode == RESULT_OK) {
+            final Tweet result = TweetCreationHelper.getResult(data);
+
+            if (requestCode == TEXT_RESULT) {
+                textTweetCreatedSubject.onNext(result);
+            } else if (requestCode == VIDEO_RESULT) {
+                videoTweetCreatedSubject.onNext(result);
             }
         }
     }
 
     @Override
     public void showError() {
-        Toast.makeText(this, R.string.generic_error, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.generic_error, Toast.LENGTH_LONG)
+             .show();
     }
 }

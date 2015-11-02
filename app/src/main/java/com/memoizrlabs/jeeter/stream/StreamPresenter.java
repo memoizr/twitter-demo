@@ -80,14 +80,14 @@ final class StreamPresenter extends BasePresenter<StreamPresenter.View> {
     @NonNull
     private static Subscription createNewTweet(@NonNull View view) {
         return view.whenTweetCreationStarted()
-                   .flatMap(event -> view.showTweetCreation())
+                   .flatMap(event -> view.showTweetCreation().take(1))
                    .subscribe(view::insertTweet);
     }
 
     @NonNull
     private static Subscription createNewVideoTweet(@NonNull View view) {
         return view.whenVideoTweetCreationStarted()
-                   .flatMap(event -> view.showVideoTweetCreation())
+                   .flatMap(event -> view.showVideoTweetCreation().take(1))
                    .subscribe(view::insertTweet);
     }
 

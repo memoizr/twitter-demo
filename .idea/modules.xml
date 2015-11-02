@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Jeeter.iml" filepath="$PROJECT_DIR$/Jeeter.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/twitter-demo.iml" filepath="$PROJECT_DIR$/twitter-demo.iml" />
     </modules>
   </component>
 </project>
