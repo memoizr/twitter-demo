@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    package="com.memoizrlabs.jeeter"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
+    <uses-feature android:name="android.hardware.camera"/>
+
+    <application
+        android:name="com.memoizrlabs.jeeter.JeeterApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/LightTheme">
+
+        <activity
+            android:name=".splash.SplashActivity"
+            android:label="@string/app_name"
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.memoizrlabs.jeeter.login.LoginActivity"
+            android:label="@string/app_name">
+        </activity>
+
+        <activity
+            android:name="com.memoizrlabs.jeeter.stream.StreamActivity"
+            android:label="@string/app_name">
+        </activity>
+
+        <activity
+            android:name=".tweetcreation.text.TweetCreationActivity"
+            android:label="@string/post_update"
+            android:parentActivityName=".stream.StreamActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize">
+        </activity>
+
+        <activity
+            android:name=".tweetcreation.video.VideoTweetCreationActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/DarkTheme">
+        </activity>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="m2j1msGUl17uNT8NishcX6j6c"/>
+    </application>
+
+</manifest>

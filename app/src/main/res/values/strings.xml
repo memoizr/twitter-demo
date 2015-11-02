@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Jeeter</string>
+    <string name="generic_error">Something went wrong, too bad.</string>
+    <string name="create_tweet">create tweet</string>
+    <string name="create_tweet_hint">What is happening?</string>
+    <string name="processing_video">Processing video…</string>
+    <string name="action_send">send</string>
+    <string name="post_update">Post status update</string>
+    <string name="error_too_short">The text entered is too short</string>
+    <string name="error_too_long">The text entered is too long.</string>
+</resources>
