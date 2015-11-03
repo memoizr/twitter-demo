@@ -18,5 +18,5 @@
 - Spiders.
 
 ### Test coverage
-You can have a look at the Jacoco report to see what I've missed, but here's a summary:
+You can have a look at the Jacoco report to see what I've missed, but here's a summary (includes view code):
 ![Alt text](/demo/test-coverage.png?raw=true "Test coverage")
