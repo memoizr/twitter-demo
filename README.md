@@ -16,3 +16,7 @@
 - Only works on ARM 32 bit architectures with NEON instruction set support, as that's what I decided to target for now.
 - Slow editing. This could be mitigated by recompiling the ffmpeg binary to support parallelization.
 - Spiders.
+
+### Test coverage
+You can have a look at the Jacoco report to see what I've missed, but here's a summary:
+![Alt text](/demo/test-coverage.png?raw=true "Test coverage")
