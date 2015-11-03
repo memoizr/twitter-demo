@@ -35,10 +35,10 @@ public class StreamPresenterTest extends BasePresenterTest<StreamPresenter, Stre
 
     private final PublishSubject<List<Tweet>> timelineSubject = PublishSubject.create();
     private final PublishSubject<Void> refreshSubject = PublishSubject.create();
-    private final PublishSubject<Object> whenCreateNewTweetSubject = PublishSubject.create();
-    private final PublishSubject<Object> whenCreateNewVideoTweetSubject = PublishSubject.create();
-    private final PublishSubject<Tweet> whenTweetCreatedSubject = PublishSubject.create();
-    private final PublishSubject<Tweet> whenVideoTweetCreatedSubject = PublishSubject.create();
+    private final PublishSubject<Object> createNewTweetActionSubject = PublishSubject.create();
+    private final PublishSubject<Object> createNewVideoTweetActionSubject = PublishSubject.create();
+    private final PublishSubject<Tweet> tweetCreatedSubject = PublishSubject.create();
+    private final PublishSubject<Tweet> videoTweetCreatedSubject = PublishSubject.create();
 
     @Mock private TweetRepository tweetRepository;
     @Mock private User user;
@@ -61,29 +61,35 @@ public class StreamPresenterTest extends BasePresenterTest<StreamPresenter, Stre
         when(tweetRepository.getTweets(anyInt())).thenReturn(timelineSubject.take(1));
 
         when(view.whenRefresh()).thenReturn(refreshSubject);
-        when(view.whenTweetCreationStarted()).thenReturn(whenCreateNewTweetSubject);
-        when(view.whenVideoTweetCreationStarted()).thenReturn(whenCreateNewVideoTweetSubject);
-        when(view.showTweetCreation()).thenReturn(whenTweetCreatedSubject);
-        when(view.showVideoTweetCreation()).thenReturn(whenVideoTweetCreatedSubject);
+        when(view.whenTweetCreationStarted()).thenReturn(createNewTweetActionSubject);
+        when(view.whenVideoTweetCreationStarted()).thenReturn(createNewVideoTweetActionSubject);
+        when(view.showTweetCreation()).thenReturn(tweetCreatedSubject);
+        when(view.showVideoTweetCreation()).thenReturn(videoTweetCreatedSubject);
     }
 
     @Test
     public void when_viewIsAttached_fetchesTweets() {
         onViewAttached();
-        timelineSubject.onNext(Collections.singletonList(tweet));
+
+        returnTweetsFromRepository();
 
         verify(tweetRepository).getTweets(anyInt());
         verify(view).showTweets(anyListOf(Tweet.class));
     }
 
+    private void returnTweetsFromRepository() {
+        timelineSubject.onNext(Collections.singletonList(tweet));
+    }
+
     @Test
     public void when_viewIsAttached_thenDetached_thenReAttached_fetchesTweetsOnce() {
         onViewAttached();
-        timelineSubject.onNext(Collections.singletonList(tweet));
+
+        returnTweetsFromRepository();
 
         onViewDetached();
         onViewAttached();
-        timelineSubject.onNext(Collections.singletonList(tweet));
+        returnTweetsFromRepository();
 
         verify(tweetRepository).getTweets(anyInt());
     }
@@ -92,7 +98,8 @@ public class StreamPresenterTest extends BasePresenterTest<StreamPresenter, Stre
     public void when_refreshHappens_fetchesTweets() {
         onViewAttached();
 
-        timelineSubject.onNext(Collections.singletonList(tweet));
+        returnTweetsFromRepository();
+
         when(tweetRepository.getTweets(anyInt())).thenReturn(timelineSubject.take(1));
 
         refreshStream();
@@ -103,7 +110,7 @@ public class StreamPresenterTest extends BasePresenterTest<StreamPresenter, Stre
 
     private void refreshStream() {
         refreshSubject.onNext(null);
-        timelineSubject.onNext(Collections.singletonList(tweet));
+        returnTweetsFromRepository();
     }
 
     @Test
@@ -116,20 +123,24 @@ public class StreamPresenterTest extends BasePresenterTest<StreamPresenter, Stre
     }
 
     @Test
-    public void when_createPostIsSelected_then_showCreatePost() throws Exception {
+    public void when_createTweetIsSelected_then_showCreateTweet() throws Exception {
         onViewAttached();
 
-        whenCreateNewTweetSubject.onNext(null);
+        triggerCreateNewTweetAction();
 
         verify(view).showTweetCreation();
     }
 
+    private void triggerCreateNewTweetAction() {
+        createNewTweetActionSubject.onNext(null);
+    }
+
     @Test
-    public void when_postIsCreated_then_showLatestPost() throws Exception {
+    public void when_tweetIsCreated_then_showLatestTweet() throws Exception {
         onViewAttached();
 
-        whenCreateNewTweetSubject.onNext(null);
-        whenTweetCreatedSubject.onNext(tweet);
+        triggerCreateNewTweetAction();
+        tweetCreatedSubject.onNext(tweet);
 
         verify(view).insertTweet(tweet);
     }
@@ -138,8 +149,22 @@ public class StreamPresenterTest extends BasePresenterTest<StreamPresenter, Stre
     public void when_createVideoTweetIsSelected_then_showCreateVideoTweet() throws Exception {
         onViewAttached();
 
-        whenCreateNewVideoTweetSubject.onNext(null);
+        triggerCreateNewVideoTweetAction();
 
         verify(view).showVideoTweetCreation();
+    }
+
+    private void triggerCreateNewVideoTweetAction() {
+        createNewVideoTweetActionSubject.onNext(null);
+    }
+
+    @Test
+    public void when_videoTweetIsCreated_then_showLatestTweet() throws Exception {
+        onViewAttached();
+
+        triggerCreateNewVideoTweetAction();
+        videoTweetCreatedSubject.onNext(tweet);
+
+        verify(view).insertTweet(tweet);
     }
 }

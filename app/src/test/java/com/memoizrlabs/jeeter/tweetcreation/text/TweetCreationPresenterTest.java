@@ -36,7 +36,7 @@ public final class TweetCreationPresenterTest extends BasePresenterTest<TweetCre
 
     private final PublishSubject<String> contentChangedSubject = PublishSubject.create();
     private final PublishSubject<Object> createActionSubject = PublishSubject.create();
-    private final PublishSubject<Tweet> tweetCreationSubject = PublishSubject.create();
+    private final PublishSubject<Tweet> tweetCreatedSubject = PublishSubject.create();
 
     @Mock private TweetService tweetService;
     @Mock private Tweet tweet;
@@ -45,7 +45,7 @@ public final class TweetCreationPresenterTest extends BasePresenterTest<TweetCre
     protected void setupMocks() {
         when(view.whenContentChanged()).thenReturn(contentChangedSubject);
         when(view.whenCreateAction()).thenReturn(createActionSubject);
-        when(tweetService.postUpdate(anyString())).thenReturn(tweetCreationSubject);
+        when(tweetService.postUpdate(anyString())).thenReturn(tweetCreatedSubject);
     }
 
     @NonNull
@@ -125,7 +125,7 @@ public final class TweetCreationPresenterTest extends BasePresenterTest<TweetCre
 
         contentChangedSubject.onNext(POST_CONTENT);
         createActionSubject.onNext(null);
-        tweetCreationSubject.onError(new Throwable());
+        tweetCreatedSubject.onError(new Throwable());
 
         verify(view).showError();
     }
@@ -136,7 +136,7 @@ public final class TweetCreationPresenterTest extends BasePresenterTest<TweetCre
 
         contentChangedSubject.onNext(POST_CONTENT);
         createActionSubject.onNext(null);
-        tweetCreationSubject.onNext(tweet);
+        tweetCreatedSubject.onNext(tweet);
 
         verify(view).showTweet(any(Tweet.class));
     }

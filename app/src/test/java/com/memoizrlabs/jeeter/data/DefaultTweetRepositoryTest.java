@@ -11,9 +11,11 @@ import static org.mockito.Mockito.verify;
 
 public class DefaultTweetRepositoryTest extends BaseMockitoTest {
 
-    public static final int COUNT = 10;
-    @Mock private TweetService tweetService;
+    private static final int COUNT = 10;
+
     private TweetRepository tweetRepository;
+
+    @Mock private TweetService tweetService;
 
     @Before
     @Override
