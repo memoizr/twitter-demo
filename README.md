@@ -20,3 +20,6 @@
 ### Test coverage
 You can have a look at the Jacoco report to see what I've missed, but here's a summary (includes view code):
 ![Alt text](/demo/test-coverage.png?raw=true "Test coverage")
+
+### A note about licensing
+As I'm using ffmpeg, which comes with a GNU GPL v2.1 license. This demo is licensed under the same license for compatibility reasons.
