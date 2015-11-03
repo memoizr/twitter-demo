@@ -13,4 +13,6 @@
 - Low Cucumber coverage.
 - Sparse testing for some util classes, in particular the ones dealing with saving files, setting executable permissions and running native code. I still haven't figured out how to test that.
 - Not much error handling. Not much rotation handling. Only the Stream screen handles rotation for now.
+- Only works on ARM 32 bit architectures with NEON instruction set support, as that's what I decided to target for now.
+- Slow editing. This could be mitigated by recompiling the ffmpeg binary to support parallelization.
 - Spiders.
